@@ -39,46 +39,6 @@ function shuffle(array) {
   return clone;
 }
 
-let quizLocked = false;
-
-function handleQuizGuess(buttons, button, option, card) {
-  if (quizLocked) return;
-  quizLocked = true;
-
-  buttons.forEach((btn) => {
-    btn.disabled = true;
-  });
-
-  const isCorrect = option.symbol === card.symbol;
-
-  if (isCorrect) {
-    score += 1;
-    streak += 1;
-    quizFeedback.textContent = 'Correto! ⚡ continue.';
-    quizFeedback.classList.remove('is-error');
-    quizFeedback.classList.add('is-success');
-    button.classList.add('is-correct');
-  } else {
-    streak = 0;
-    quizFeedback.textContent = `Errou — era ${card.romanization}.`;
-    quizFeedback.classList.remove('is-success');
-    quizFeedback.classList.add('is-error');
-    button.classList.add('is-incorrect');
-    const correctButton = buttons.find((btn) => btn.dataset.symbol === card.symbol);
-    if (correctButton) {
-      correctButton.classList.add('is-correct');
-    }
-  }
-
-  scoreEl.textContent = score;
-  streakEl.textContent = streak;
-
-  setTimeout(() => {
-    quizFeedback.classList.remove('is-success', 'is-error');
-    nextQuiz();
-  }, 900);
-}
-
 function nextQuiz() {
   const card = PRACTICE_DATA[Math.floor(Math.random() * PRACTICE_DATA.length)];
   const distractors = shuffle(PRACTICE_DATA).filter((item) => item.symbol !== card.symbol).slice(0, 3);
@@ -87,17 +47,26 @@ function nextQuiz() {
   quizSymbol.textContent = card.symbol;
   quizOptions.innerHTML = '';
   quizFeedback.textContent = 'Pronto para testar?';
-  quizFeedback.classList.remove('is-success', 'is-error');
-  quizLocked = false;
-
-  const buttons = [];
+  quizFeedback.style.color = '';
 
   options.forEach((option) => {
     const button = document.createElement('button');
     button.textContent = option.romanization;
-    button.dataset.symbol = option.symbol;
-    button.addEventListener('click', () => handleQuizGuess(buttons, button, option, card));
-    buttons.push(button);
+    button.addEventListener('click', () => {
+      if (option.symbol === card.symbol) {
+        score += 1;
+        streak += 1;
+        quizFeedback.textContent = 'Correto! ⚡ continue.';
+        quizFeedback.style.color = '#ff9f1c';
+      } else {
+        streak = 0;
+        quizFeedback.textContent = `Errou — era ${card.romanization}.`;
+        quizFeedback.style.color = '#f87171';
+      }
+      scoreEl.textContent = score;
+      streakEl.textContent = streak;
+      nextQuiz();
+    });
     quizOptions.appendChild(button);
   });
 }
