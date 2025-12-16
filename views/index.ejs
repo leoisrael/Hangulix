@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hangulix | Cyber Study Hub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="/public/css/style.css" />
+</head>
+<body>
+  <div class="glow-backdrop"></div>
+  <div class="bg-grid"></div>
+  <header class="hero">
+    <div class="hero__content">
+      <p class="chip">⚡ Laboratório Hangul | Edição Cyberpunk</p>
+      <h1>Decore Hangul com ritmo neon e foco total.</h1>
+      <p class="lead">Flashcards, quizzes e tabelas ultra-visuais para você dominar os caracteres coreanos com uma vibe futurista.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#flashcards">Começar a praticar</a>
+        <a class="btn btn-ghost" href="#tabelas">Ver tabelas completas</a>
+      </div>
+      <div class="stats">
+        <div><span class="stat-number">40+</span><span class="stat-label">jamos mapeados</span></div>
+        <div><span class="stat-number">3</span><span class="stat-label">modos de treino</span></div>
+        <div><span class="stat-number">∞</span><span class="stat-label">combinações</span></div>
+      </div>
+    </div>
+    <div class="hero__hologram">
+      <div class="grid"></div>
+      <div class="floating-card">
+        <p class="eyebrow">Hangul Pulse</p>
+        <div class="symbol">ㅎ ㅏ ㄴ ㄱ ㅡ ㄹ</div>
+        <p class="mono">dominância visual · memorização ativa · feedback imediato</p>
+        <div class="accent-bar"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="flashcards" class="panel">
+      <div class="panel__header">
+        <div>
+          <p class="chip">Modo reativo</p>
+          <h2>Flashcards de caracteres e blocos.</h2>
+          <p class="muted">Revele a romanização, escaneie a composição e avance para o próximo card.</p>
+        </div>
+        <div class="tiny-grid">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="card-grid">
+        <div class="card neon" id="flashcard">
+          <div class="card__label">Jamo / sílaba</div>
+          <div class="card__symbol" id="flash-symbol">가</div>
+          <div class="card__hint" id="flash-hint">ㄱ + ㅏ</div>
+          <div class="card__answer" id="flash-answer">ga</div>
+          <div class="card__actions">
+            <button class="btn btn-ghost" id="reveal-btn">Revelar</button>
+            <button class="btn btn-primary" id="next-btn">Próximo</button>
+          </div>
+        </div>
+        <div class="card stat-card">
+          <div class="card__label">Painel de foco</div>
+          <div class="stat">
+            <p class="muted">Acertos no quiz</p>
+            <p class="stat-number" id="score">0</p>
+          </div>
+          <div class="stat">
+            <p class="muted">Sequência</p>
+            <p class="stat-number" id="streak">0</p>
+          </div>
+          <div class="stat">
+            <p class="muted">Cards vistos</p>
+            <p class="stat-number" id="seen">0</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="quiz">
+      <div class="panel__header">
+        <div>
+          <p class="chip">Quiz relâmpago</p>
+          <h2>Selecione a romanização correta.</h2>
+          <p class="muted">Feedback imediato, trilha sonora futurista e um toque de neon.</p>
+        </div>
+        <div class="pill">Modo Turbo</div>
+      </div>
+      <div class="quiz">
+        <div class="quiz__symbol" id="quiz-symbol">ㅎ</div>
+        <div class="quiz__options" id="quiz-options"></div>
+        <p class="quiz__feedback" id="quiz-feedback">Pronto para testar?</p>
+      </div>
+    </section>
+
+    <section class="panel" id="tabelas">
+      <div class="panel__header">
+        <div>
+          <p class="chip">Mapa visual</p>
+          <h2>Tabelas de jamos essenciais.</h2>
+          <p class="muted">Acesso rápido às consoantes, duplas e vogais em blocos compactos.</p>
+        </div>
+        <div class="pill pill--ghost">Referência rápida</div>
+      </div>
+      <div class="tables">
+        <% sections.forEach(function(section) { %>
+          <div class="table-card">
+            <div class="table-card__header">
+              <h3><%= section.title %></h3>
+              <span class="muted">tap para fixar</span>
+            </div>
+            <div class="table-grid">
+              <% section.items.forEach(function(item) { %>
+                <div class="table-cell">
+                  <span class="symbol"><%= item.symbol %></span>
+                  <span class="roman"><%= item.romanization %></span>
+                </div>
+              <% }); %>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+
+    <section class="panel" id="dicas">
+      <div class="panel__header">
+        <div>
+          <p class="chip">Micro objetivos</p>
+          <h2>Rotina de treino em 3 blocos.</h2>
+          <p class="muted">Combine repetição espaçada, quiz e leitura guiada para acelerar a memorização.</p>
+        </div>
+      </div>
+      <div class="tips">
+        <div class="tip">
+          <p class="eyebrow">01 · Flash</p>
+          <h3>10 cards rápidos</h3>
+          <p class="muted">Revele, pronuncie em voz alta e troque de card. O modo neon deixa tudo mais engajado.</p>
+        </div>
+        <div class="tip">
+          <p class="eyebrow">02 · Quiz</p>
+          <h3>5 rodadas certeiras</h3>
+          <p class="muted">Acerte pelo menos 4/5 para consolidar. Errou? Repita o mesmo bloco.</p>
+        </div>
+        <div class="tip">
+          <p class="eyebrow">03 · Revisão</p>
+          <h3>Tabela em mosaico</h3>
+          <p class="muted">Escolha um grupo (ex.: vogais complexas) e leia em voz alta na diagonal e depois na horizontal.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Feito para treinar Hangul com estética cyberpunk. Continue o ritmo — 화이팅!</p>
+  </footer>
+
+  <script>const PRACTICE_DATA = <%- JSON.stringify(practiceSet) %>;</script>
+  <script src="/public/js/app.js"></script>
+</body>
+</html>
