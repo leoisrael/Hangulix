@@ -4,7 +4,7 @@
   "description": "Aplicação Node.js com EJS para praticar caracteres coreanos com estética cyberpunk.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "dev": "node server.js",
     "test": "echo \"No tests configured\""
   },
   "keywords": ["hangul", "ejs", "study", "cyberpunk"],
